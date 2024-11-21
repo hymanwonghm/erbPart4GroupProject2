@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>ABC Administration System</title>
+</head>
+<body>
+    
+    <h2>Course Administration System</h2> 
+
+
+    <table>
+        <tr>
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>credits</th>
+            <th>status</th>
+        </tr>
+        <% data.forEach((element) => {%>
+
+        <tr>
+            <td> <%=element.course_code%></td>
+            <td> <%=element.course_title%></td>
+            <td> <%=element.credits%></td>
+            <td> <%=element.status%></td>
+            <td>
+                <form action="/available" method="POST">
+                    <input type="text"style="display: none" value="<%= element.id %>" name="id">
+                    <button type = "submit">Available</button>
+                </form>
+            </td>
+            <td>
+                <form action="/unavailable" method="POST">
+                    <input type="text"style="display: none" value="<%= element.id %>" name="id">
+                    <button type = "submit">Unavailable</button>
+                </form>
+            </td>
+            <td>
+                <form action="/delete" method="POST">
+                    <input type="text"style="display: none" value="<%= element.id %>" name="id">
+                    <button type = "submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% })%>
+    </table>
+    
+    <br>
+    <h2>Add</h2>
+    <form action="/add" method="POST">
+        <input type="text" placeholder="Course Code" name="course_code">
+        <input type="text" placeholder="Course Title" name="course_title">
+        <input type="text" placeholder="credits" name="credits">
+        <button type="submit">Add</button>
+    </form>
+    <br>
+    <div class="container">
+        <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+</div>
+</body>
+</html>
